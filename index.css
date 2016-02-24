@@ -1,0 +1,26 @@
+body {
+  background-color: #ddd;
+}
+
+.eyes {
+  width: 54px;
+  margin: 0 auto;
+}
+
+.eye {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 100%;
+  margin: 8px;
+  border: 2px solid white;
+  background-color: black;
+}
+
+.mouth {
+  border-radius: 10px 10px 30px 30px;
+  background-color: black;
+  margin: 0 auto;
+  -webkit-transition: width .02s, height .02s;
+  transition: width .02s, height .02s;
+}
