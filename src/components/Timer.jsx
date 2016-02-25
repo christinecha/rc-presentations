@@ -9,7 +9,8 @@ class Timer extends React.Component {
     super(props)
     this.state = {
       timerIsRunning: false,
-      secondsLeft: 300
+      secondsLeft: 300,
+      timerColor: "rgba(0,0,0,0.8)"
     }
   }
 
@@ -36,6 +37,11 @@ class Timer extends React.Component {
       if (!this.state.timerIsRunning && this.state.secondsLeft != 300) {
         clearInterval(timer)
       } else if (this.state.secondsLeft > 0) {
+        if (this.state.secondsLeft <= 20) {
+          this.setState({
+            timerColor: "rgba(167,9,45,0.8)"
+          })
+        }
         this.tickTimer()
       } else {
         this.playMeOff()
@@ -92,9 +98,13 @@ class Timer extends React.Component {
   }
 
   displayTimer() {
+    let timerStyle = {
+      backgroundColor: this.state.timerColor
+    }
+
     if (this.state.timerIsRunning) {
       return (
-        <div className="timer">
+        <div className="timer" style={timerStyle}>
           {helper.displayAsMinutes(this.state.secondsLeft)}
           <h4>press "Q" to quit</h4>
         </div>
@@ -105,14 +115,13 @@ class Timer extends React.Component {
   }
 
   render() {
-
     return (
       <div className="timerContainer">
         { this.displayTimer() }
         <button
           className="timerButton"
           onClick={() => this.startTimer()}>Start Timer (5 Min)</button>
-        <h5>press "Q" to stop the music, too</h5>
+        <h5>you can also press "Q" to stop the music, though it'll fade out by itself</h5>
       </div>
     )
 
