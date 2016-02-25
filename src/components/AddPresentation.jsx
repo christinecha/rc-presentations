@@ -23,7 +23,10 @@ class AddPresentation extends React.Component {
   }
 
   addEntryInFirebase(e) {
-    if (this.state.presenterInput.length > 0) {
+    if (document.getElementsByClassName("presentation").length >= 9) {
+      e.preventDefault()
+      this.displayNotice("aw gee, it's all booked!")
+    } else if (this.state.presenterInput.length > 0) {
       ref.child("presentations").push({
         title: this.state.titleInput,
         presenter: this.state.presenterInput,
@@ -31,15 +34,19 @@ class AddPresentation extends React.Component {
       })
     } else {
       e.preventDefault()
-      this.setState({
-        notice: "please add your name"
-      })
-      setTimeout(() => {
-        this.setState({
-          notice: ""
-        })
-      }, 1000)
+      this.displayNotice("Please add your name")
     }
+  }
+
+  displayNotice(msg) {
+    this.setState({
+      notice: msg
+    })
+    setTimeout(() => {
+      this.setState({
+        notice: ""
+      })
+    }, 1000)
   }
 
   getNotice() {

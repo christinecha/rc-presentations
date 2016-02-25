@@ -13,21 +13,59 @@ class Timer extends React.Component {
     }
   }
 
+  componentWillMount() {
+    document.addEventListener("keypress", (e) => this.handleKeypress(e, this))
+  }
+
+  handleKeypress(e, _this) {
+    if (e.code == "KeyQ") {
+      _this.stopTimer()
+    }
+  }
+
   startTimer() {
-    if (!this.state.timerIsRunning) {
-      let timer = setInterval(() => {
-        if (this.state.secondsLeft > 0) {
-          this.setState({
-            secondsLeft: this.state.secondsLeft - 1
-          })
-        } else {
-          alert('out of time!')
-          clearInterval(timer)
-          this.setState({
-            secondsLeft: 300
-          })
-        }
-      }, 1000)
+    this.setState({
+      secondsLeft: 300
+    })
+
+    let timer = setInterval(() => {
+      if (!this.state.timerIsRunning && this.state.secondsLeft != 300) {
+        clearInterval(timer)
+      } else if (this.state.secondsLeft > 0) {
+        this.tickTimer()
+      } else {
+        alert('out of time!')
+        clearInterval(timer)
+        this.setState({
+          timerIsRunning: false
+        })
+      }
+    }, 1000)
+  }
+
+  tickTimer() {
+    this.setState({
+      secondsLeft: this.state.secondsLeft - 1,
+      timerIsRunning: true
+    })
+  }
+
+  stopTimer() {
+    this.setState({
+      timerIsRunning: false
+    })
+  }
+
+  displayTimer() {
+    if (this.state.timerIsRunning) {
+      return (
+        <div className="timer">
+          {helper.displayAsMinutes(this.state.secondsLeft)}
+          <h4>press "Q" to quit</h4>
+        </div>
+      )
+    } else {
+      return null
     }
   }
 
@@ -35,8 +73,10 @@ class Timer extends React.Component {
 
     return (
       <div>
-        <div>{helper.displayAsMinutes(this.state.secondsLeft)}</div>
-        <button onClick={() => this.startTimer()}>Start Timer (5 Min)</button>
+        { this.displayTimer() }
+        <button
+          className="timerButton"
+          onClick={() => this.startTimer()}>Start Timer (5 Min)</button>
       </div>
     )
 

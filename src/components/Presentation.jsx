@@ -25,6 +25,17 @@ class Presentation extends React.Component {
     this.setState(newInputObj)
   }
 
+  displayNotice(msg) {
+    this.setState({
+      notice: msg
+    })
+    setTimeout(() => {
+      this.setState({
+        notice: ""
+      })
+    }, 1000)
+  }
+
   getNotice() {
     if (this.state.notice.length > 0) {
       return (
@@ -44,16 +55,10 @@ class Presentation extends React.Component {
         presenter: this.state.presenterInput,
         lastUpdated: Firebase.ServerValue.TIMESTAMP
       })
+      this.displayNotice("updated entry")
     } else {
       e.preventDefault()
-      this.setState({
-        notice: "please add your name"
-      })
-      setTimeout(() => {
-        this.setState({
-          notice: ""
-        })
-      }, 1000)
+      this.displayNotice("please add your name")
     }
   }
 
@@ -78,8 +83,11 @@ class Presentation extends React.Component {
         <input
           value={this.state.presenterInput}
           onChange={(e) => this.updateInput("presenterInput", e)} />
-        <button onClick={(e) => this.updateEntryInFirebase(e)}>UPDATE</button>
-        <button onClick={() => this.removeEntryInFirebase()}>REMOVE</button>
+        <button
+          onClick={(e) => this.updateEntryInFirebase(e)}>UPDATE</button>
+        <button
+          className="remove"
+          onClick={() => this.removeEntryInFirebase()}>REMOVE</button>
         { this.getNotice() }
       </div>
     )

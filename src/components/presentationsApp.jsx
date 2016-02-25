@@ -10,17 +10,6 @@ import Timer from './Timer.jsx'
 
 export class PresentationsApp extends React.Component {
 
-  getPresentationForm() {
-    const { data } = this.props
-
-    if (data && Object.keys(data) && Object.keys(data).length >= 9) {
-      return <div>sorry, all full!</div>
-    } else {
-      return <AddPresentation />
-    }
-
-  }
-
   getPresentations() {
     const { data } = this.props
 
@@ -45,11 +34,12 @@ export class PresentationsApp extends React.Component {
 
     return (
       <div>
+        <img src="../src/assets/rc_logo.png" />
         <h2>Thursday Presentations at RC</h2>
         <div className="presentations">
           { this.getPresentations() }
           <hr />
-          { this.getPresentationForm() }
+          <AddPresentation />
         </div>
         <Timer />
       </div>

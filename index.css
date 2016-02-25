@@ -4,19 +4,20 @@
 }
 
 body {
-  background-color: #282829;
+  background-color: #1A1A1B;
   font-family: 'Open Sans', sans-serif;
   font-weight: 300;
   text-align: center;
+  padding-top: 20px;
 }
 
 h2 {
-  margin-top: 50px;
-  color: #72A74C;
+  margin-top: 20px;
+  color: #4B7507;
   font-weight: 300;
 }
 
-.notice {
+.notice, .timer {
   position: fixed;
   top: 0;
   left: 0;
@@ -29,6 +30,31 @@ h2 {
   text-align: center;
   padding-top: 200px;
 }
+
+.timer {
+  font-size: 400px;
+  padding-top: 50px;
+  font-weight: 700;
+}
+
+.timer h4 {
+  font-size: 20px;
+  margin-top: -50px;
+}
+
+.timerButton {
+  cursor: pointer;
+  border: none;
+  color: #f1f1f2;
+  width: 580px;
+  padding: 20px;
+  font-size: 15px;
+  background-color: #4B7507;
+  text-transform: uppercase;
+  margin-top: 20px;
+}
+
+.timerButton:hover { opacity: .8; }
 
 .presentations {
   text-align: left;
@@ -67,17 +93,15 @@ h2 {
 .presentations button {
   cursor: pointer;
   background-color: transparent;
-  color: #3795A5;
+  color: #505051;
   border: none;
   font-weight: 700;
   font-size: 11px;
   text-transform: uppercase;
   margin: 5px 5px;
 }
-
-.presentations button:hover {
-  color: #fff;
-}
+.presentations button:hover { color: #4B7507; }
+.presentation .remove:hover { color: #DE135A; }
 
 .presentations hr {
   border: 1px solid #f1f1f2;
