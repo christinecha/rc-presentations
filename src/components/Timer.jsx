@@ -9,7 +9,7 @@ class Timer extends React.Component {
     super(props)
     this.state = {
       timerIsRunning: false,
-      secondsLeft: 3000
+      secondsLeft: 300
     }
   }
 
@@ -26,14 +26,14 @@ class Timer extends React.Component {
 
   startTimer() {
     this.setState({
-      secondsLeft: 3000
+      secondsLeft: 300
     })
 
     let audio = document.getElementById("timerMusic")
     audio.src = helper.randomMusicFile()
 
     let timer = setInterval(() => {
-      if (!this.state.timerIsRunning && this.state.secondsLeft != 3) {
+      if (!this.state.timerIsRunning && this.state.secondsLeft != 300) {
         clearInterval(timer)
       } else if (this.state.secondsLeft > 0) {
         this.tickTimer()
