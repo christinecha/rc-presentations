@@ -34,7 +34,7 @@ export class PresentationsApp extends React.Component {
 
     return (
       <div>
-        <img src="../src/assets/rc_logo.png" />
+        <img src="./src/assets/rc_logo.png" />
         <h2>Thursday Presentations at RC</h2>
         <div className="presentations">
           { this.getPresentations() }
