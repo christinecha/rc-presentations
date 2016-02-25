@@ -56,6 +56,8 @@ h2 {
 
 .timerButton:hover { opacity: .8; }
 
+.timerContainer h5 { color: #818182; font-weight: 300; font-size: 12px; }
+
 .presentations {
   text-align: left;
   width: 580px;

@@ -23,3 +23,10 @@ export const fixedNumOfDigits = (value, numOfDigits) => {
 
   return finalDisplay
 }
+
+export const randomMusicFile = () => {
+  let randomNum = Math.round(Math.random() * 5)
+  let fileString = "./src/assets/" + randomNum + ".mp3"
+
+  return fileString
+}
