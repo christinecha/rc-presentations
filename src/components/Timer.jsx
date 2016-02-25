@@ -112,7 +112,7 @@ class Timer extends React.Component {
         <button
           className="timerButton"
           onClick={() => this.startTimer()}>Start Timer (5 Min)</button>
-        <h5>press "Q" to stop the music, too</h5>
+        <h5>you can also press "Q" to stop the music, although it'll fade out by itself</h5>
       </div>
     )
 
