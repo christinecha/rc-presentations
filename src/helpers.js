@@ -1,23 +1,25 @@
 "use strict"
 
-import Firebase from 'firebase'
-let ref = new Firebase("https://rc-presentations.firebaseio.com/")
+export const displayAsMinutes = (timeInSeconds) => {
+  let minutes = Math.floor(timeInSeconds / 60)
+  let seconds = timeInSeconds % 60
+  let timeString = fixedNumOfDigits(minutes, 2) + ':' + fixedNumOfDigits(seconds, 2)
 
+  return timeString
+}
 
-export const updateEntryInFirebase = (path, value) => {
+export const fixedNumOfDigits = (value, numOfDigits) => {
+  let stringifiedValue = value.toString()
+  let finalDisplay = ''
 
-  path.update(value, () => {
-    ref.once("value", (snapshot) => {
+  if (stringifiedValue.length < numOfDigits) {
+    for (let i = 0; i < numOfDigits - stringifiedValue.length; i++) {
+      finalDisplay += '0'
+    }
+    finalDisplay += stringifiedValue
+  } else {
+    finalDisplay = stringifiedValue
+  }
 
-      let data = snapshot.val()
-
-      console.log('resolved')
-      return ({
-        type: 'UPDATE_ENTRY',
-        data: data
-      })
-
-    })
-  })
-
+  return finalDisplay
 }

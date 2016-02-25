@@ -5,15 +5,13 @@ import Firebase from 'firebase'
 let ref = new Firebase("https://rc-presentations.firebaseio.com/")
 
 
-class Presentation extends React.Component {
+class AddPresentation extends React.Component {
 
   constructor(props) {
     super(props)
-    const { presenter, title } = props.presentation
-
     this.state = {
-      titleInput: title,
-      presenterInput: presenter,
+      titleInput: "",
+      presenterInput: "",
       notice: ""
     }
   }
@@ -21,25 +19,12 @@ class Presentation extends React.Component {
   updateInput(label, e) {
     let newInputObj = {}
     newInputObj[label] = e.target.value
-
     this.setState(newInputObj)
   }
 
-  getNotice() {
-    if (this.state.notice.length > 0) {
-      return (
-        <div className="notice">
-          {this.state.notice}
-        </div>
-      )
-    } else {
-      return null
-    }
-  }
-
-  updateEntryInFirebase(e) {
+  addEntryInFirebase(e) {
     if (this.state.presenterInput.length > 0) {
-      ref.child("presentations").child(this.props.index).update({
+      ref.child("presentations").push({
         title: this.state.titleInput,
         presenter: this.state.presenterInput,
         lastUpdated: Firebase.ServerValue.TIMESTAMP
@@ -57,33 +42,41 @@ class Presentation extends React.Component {
     }
   }
 
-  removeEntryInFirebase() {
-    ref.child("presentations").child(this.props.index).remove()
-    location.reload()
+  getNotice() {
+    if (this.state.notice.length > 0) {
+      return (
+        <div className="notice">
+          {this.state.notice}
+        </div>
+      )
+    } else {
+      return null
+    }
   }
 
   render() {
-    const {
-      index,
-      presentation
-    } = this.props
+    let entryData = {
+      title: this.state.titleInput,
+      presenter: this.state.presenterInput,
+      lastUpdated: Firebase.ServerValue.TIMESTAMP
+    }
 
     return (
-      <div className="presentation">
+      <form>
         <input
           className="title"
-          placeholder="Untitled"
+          placeholder="presentation title"
           value={this.state.titleInput}
           onChange={(e) => this.updateInput("titleInput", e)} />
         <input
+          placeholder="Your Name"
           value={this.state.presenterInput}
           onChange={(e) => this.updateInput("presenterInput", e)} />
-        <button onClick={(e) => this.updateEntryInFirebase(e)}>UPDATE</button>
-        <button onClick={() => this.removeEntryInFirebase()}>REMOVE</button>
+        <button onClick={(e) => this.addEntryInFirebase(e)}>ADD</button>
         { this.getNotice() }
-      </div>
+      </form>
     )
   }
 }
 
-export default Presentation
+export default AddPresentation
